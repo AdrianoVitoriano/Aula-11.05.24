@@ -1,7 +1,7 @@
 import Usuarios from "../models/usuarios.model.js"
 import { validationResult } from "express-validator"
 
-export default class UsuariosController{
+export default class UsuariosController{ 
     static async listar(req,res){
         res.json(await Usuarios.findMany())
     }
