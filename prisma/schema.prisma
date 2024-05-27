@@ -13,9 +13,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Produto{
+model Produtos{
   id Int @id @default(autoincrement())
   nome String
   preco Float
   descricao String
+  idUsuario Int
+  idCategoria Int
+  categorias Categorias @relation(fields: [idCategoria],references: [id])
+  usuarios Usuarios @relation(fields: [idUsuario],references: [id])
+  fotos Fotos[]
+}
+model Usuarios{
+  id Int @id @default(autoincrement())
+  nome String
+  cpf String
+  cargo String
+  dtNascimento String?
+  produtos Produtos[]
+  tarefas Tarefas[]
+}
+model Tarefas{
+  id Int @id @default(autoincrement())
+  titulo String
+  descricao String
+  idUsuario Int
+  usuarios Usuarios @relation(fields: [idUsuario],references: [id])
+}
+model Categorias{
+  id Int @id @default(autoincrement())
+  nome String
+  produtos Produtos[]
+}
+
+model Fotos{
+  id Int @id @default(autoincrement())
+  titulo String
+  url String
+  idProduto Int
+  produtos Produtos @relation(fields: [idProduto],references: [id])
 }
